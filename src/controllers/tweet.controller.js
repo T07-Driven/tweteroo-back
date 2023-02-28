@@ -12,21 +12,21 @@ class TweetController{
         const { tweet, username } = req.body;
 
         if (!username || !tweet) {
-          return res.status(400).send('Todos os campos são obrigatórios!');
+          return res.status(400).send('All fields are mandatory!');
         }
 
         const { avatar } = authControllers.getLoggedUser(username)
       
         this.tweets.push({ username, tweet, avatar });
       
-        res.status(201).send('OK, seu tweet foi criado');
+        res.sendStatus(201);
     }
 
     getAll(req,res){
         const { page } = req.query;
 
         if (page && page < 1) {
-          res.status(400).send('Informe uma página válida!');
+          res.status(400).send('Please enter a valid page!');
           return;
         }
         const limite = 10;

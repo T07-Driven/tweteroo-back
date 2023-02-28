@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { Usuario } from "../models/Usuario";
+import { User } from "../models/User";
 
 class AuthController {
-  usuarios: Usuario[];
+  users: User[];
 
   constructor() {
-    this.usuarios = [];
+    this.users = [];
     this.signin = this.signin.bind(this);
     this.getLoggedUser = this.getLoggedUser.bind(this);
   }
@@ -14,17 +14,17 @@ class AuthController {
     const { username, avatar } = req.body;
 
     if (!username || !avatar) {
-      res.status(400).send("Todos os campos são obrigatórios!");
+      res.status(400).send("All fields are mandatory!");
       return;
     }
 
-    this.usuarios.push({ username, avatar });
+    this.users.push({ username, avatar });
 
-    res.status(200).send("OK deu tudo certo");
+    res.sendStatus(201);
   }
 
   getLoggedUser(username: string) {
-    return this.usuarios.find((user) => user.username === username);
+    return this.users.find((user) => user.username === username);
   }
 }
 
