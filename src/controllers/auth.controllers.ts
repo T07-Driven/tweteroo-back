@@ -10,21 +10,27 @@ class AuthController {
     this.getLoggedUser = this.getLoggedUser.bind(this);
   }
 
-  signin(req: Request, res: Response) {
+  signin(req: Request, res: Response): Response {
     const { username, avatar } = req.body;
 
     if (!username || !avatar) {
-      res.status(400).send("All fields are mandatory!");
-      return;
+      return res.status(400).send("All fields are mandatory!");
+    
     }
 
     this.users.push({ username, avatar });
 
-    res.sendStatus(201);
+    return res.sendStatus(201);
   }
 
-  getLoggedUser(username: string) {
-    return this.users.find((user) => user.username === username);
+  getLoggedUser(username: string): User {
+    const user = this.users.find((user) => user.username === username);
+
+    /* if(!user){
+      throw new Error('User não existe!')
+    } */
+
+    return user! // CONFIA essa variável NUNCA será undefined ou null (má prática, mas existe)
   }
 }
 
