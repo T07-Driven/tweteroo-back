@@ -3,7 +3,7 @@ import { Tweet } from "../models/Tweet.js";
 import authControllers from "./auth.controllers.js";
 
 class TweetController {
-  tweets: Tweet[];
+  private tweets: Tweet[];
 
   constructor() {
     this.tweets = [];
@@ -41,7 +41,7 @@ class TweetController {
       return res.send(this.reverseTweets());
     }
 
-    return res.status(200).send([...this.tweets].reverse().slice(start, end));
+    return res.status(200).send(this.reverseTweets().slice(start, end));
   }
 
   getByUser(req: Request, res: Response): Response {
@@ -52,7 +52,7 @@ class TweetController {
     return res.status(200).send(tweetsDoUsuario);
   }
 
-  reverseTweets(): Tweet[] {
+  private reverseTweets(): Tweet[] {
     return [...this.tweets].reverse();
   }
 }

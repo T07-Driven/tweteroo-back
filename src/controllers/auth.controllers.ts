@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { User } from "../models/User";
 
 class AuthController {
-  users: User[];
+  private users: User[];
 
   constructor() {
     this.users = [];
@@ -15,7 +15,6 @@ class AuthController {
 
     if (!username || !avatar) {
       return res.status(400).send("All fields are mandatory!");
-    
     }
 
     this.users.push({ username, avatar });
@@ -30,7 +29,7 @@ class AuthController {
       throw new Error('User não existe!')
     } */
 
-    return user! // CONFIA essa variável NUNCA será undefined ou null (má prática, mas existe)
+    return user!; // CONFIA essa variável NUNCA será undefined ou null (má prática, mas existe)
   }
 }
 
