@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Tweet } from "../models/Tweet.js";
-import authControllers from "./auth.controllers.js";
+import { getLoggedUserService } from "../useCases/Users/getLoggedUser";
+import authControllers from "../useCases/Users/createUser/createUserController.js";
 
 class TweetController {
   private tweets: Tweet[];
@@ -19,7 +20,7 @@ class TweetController {
       return res.status(400).send("All fields are mandatory!");
     }
 
-    const { avatar } = authControllers.getLoggedUser(username);
+    const { avatar } = getLoggedUserService.execute(username);
 
     this.tweets.push({ username, tweet, avatar });
 
