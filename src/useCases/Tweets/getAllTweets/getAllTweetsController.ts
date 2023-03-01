@@ -11,8 +11,8 @@ export class GetAllTweetsController {
       return res.status(400).send("Please enter a valid page!");
     }
 
-    this.getAllTweetsService.execute(page);
+    const tweets = this.getAllTweetsService.execute(page);
 
-    return res.sendStatus(201);
+    return res.send(tweets);
   }
 }
